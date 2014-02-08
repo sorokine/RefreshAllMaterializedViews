@@ -14,10 +14,10 @@ Usage
 
 To refresh views in `public` schema:
 ```
-select RefreshAllMaterizlizedViews()
+select RefreshAllMaterializedViews()
 ```
 
 To refresh views in other schema:
 ```
-select RefreshAllMaterizlizedViews('my_schema');
+select RefreshAllMaterializedViews('my_schema');
 ```
