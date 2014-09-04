@@ -13,11 +13,15 @@ Usage
 -----
 
 To refresh views in `public` schema:
-```
-select RefreshAllMaterializedViews()
+```sql
+select RefreshAllMaterializedViews();
+select RefreshAllMaterializedViewsConcurrently();
 ```
 
 To refresh views in other schema:
-```
+```sql
 select RefreshAllMaterializedViews('my_schema');
+select RefreshAllMaterializedViewsConcurrently('my_schema');
 ```
+
+Note: If you created the materialized view ```WITH NO DATA``` you have'll have to first populate the Materialized Views with RefreshAllMaterializedViews() before you can use the concurrent version.
