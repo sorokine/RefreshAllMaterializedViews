@@ -7,7 +7,7 @@ RETURNS INT AS $$
         FOR r IN SELECT matviewname FROM pg_matviews WHERE schemaname = schema_arg
         LOOP
             RAISE NOTICE 'Refreshing %.%', schema_arg, r.matviewname;
-            EXECUTE 'REFRESH MATERIALIZED VIEW CONCURRENTLY' || schema_arg || '.' || r.matviewname;
+            EXECUTE 'REFRESH MATERIALIZED VIEW CONCURRENTLY ' || schema_arg || '.' || r.matviewname;
         END LOOP;
 
         RETURN 1;
