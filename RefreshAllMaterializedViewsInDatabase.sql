@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION RefreshMatviewsConcurrently()
+CREATE OR REPLACE FUNCTION RefreshAllMaterializedViewsInDatabase()
 RETURNS INT AS $$
     DECLARE
         matview VARCHAR;
