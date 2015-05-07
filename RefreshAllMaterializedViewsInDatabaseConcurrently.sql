@@ -1,18 +1,12 @@
-CREATE OR REPLACE FUNCTION RefreshAllMaterializedViewsInDatabaseConcurrently()
+CREATE OR REPLACE FUNCTION RefreshMatviewsConcurrently()
 RETURNS INT AS $$
     DECLARE
-        sch VARCHAR;
-        r RECORD;
+        matview VARCHAR;
     BEGIN
-        RAISE NOTICE 'Refreshing all materialized views...';
-        FOR sch IN SELECT schema_name FROM information_schema.schemata
+        FOR matview IN SELECT schemaname || '.' || matviewname FROM pg_matviews 
         LOOP
-            RAISE NOTICE 'Refreshing materialized view in schema %', sch;
-            FOR r IN SELECT matviewname FROM pg_matviews WHERE schemaname = sch 
-            LOOP
-                RAISE NOTICE 'Refreshing %.%', sch, r.matviewname;
-                EXECUTE 'REFRESH MATERIALIZED VIEW CONCURRENTLY ' || sch || '.' || r.matviewname;
-            END LOOP;
+            RAISE NOTICE 'Refreshing %', matview;
+            EXECUTE 'REFRESH MATERIALIZED VIEW CONCURRENTLY ' || matview;
         END LOOP;
 
         RETURN 1;
